@@ -2,6 +2,11 @@ import React from 'react'
 
 export default function HomePage() {
   return (
-    <div>Home Page</div>
+    <div style={{ textAlign: "center" }}>
+      <h1>
+        Welcome
+      </h1>
+      <p>This is a newsletter and events app</p>
+    </div>
   )
 }
