@@ -1,6 +1,7 @@
 import React from 'react';
 import { redirect, useLoaderData, useParams, useRouteLoaderData } from 'react-router';
 import EventItem from '../components/EventItem';
+import { getAuthToken } from '../util/auth';
 
 export default function EventDetailPage(props) {
   // const { event } = props;
@@ -32,8 +33,13 @@ export async function eventDetailLoader({ request, params }) {
 
 export async function deleteEventAction({ params }) {
   const id = params.id;
+  const token = getAuthToken();
+  
   const response = await fetch('http://localhost:8080/events/' + id, {
     method: 'delete',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+    }
   });
   console.log('response====4444=====', response);
   if (!response.ok) {

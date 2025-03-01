@@ -1,6 +1,7 @@
 import React from 'react'
 import EventForm from '../components/EventForm'
 import { redirect } from 'react-router';
+import { getAuthToken } from '../util/auth';
 
 export default function NewEventPage() {
   return (
@@ -17,11 +18,13 @@ export async function newEventAction({ request, params }) {
     description: data.get('description'),
   };
   console.log(event);
+  const token = getAuthToken();
 
   const response = await fetch('http://localhost:8080/events', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
     },
     body: JSON.stringify(event),
   });

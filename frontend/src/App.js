@@ -10,6 +10,7 @@ import EventsLayout from "./EventsLayout";
 import ErrorPage from "./pages/ErrorPage";
 import { changeEventAction } from "./components/EventForm";
 import NewsletterPage, { newsletterAction } from './pages/NewsletterPage';
+import AuthenticationPage, { authAction } from "./pages/AuthenticationPage";
 
 // 1. Add five new (dummy) page components (content can be simple <h1> elements)
 //    - HomePage
@@ -80,6 +81,11 @@ const router = createBrowserRouter([
         element: <NewsletterPage />,
         action: newsletterAction,
       },
+      {
+        path: 'auth',
+        element: <AuthenticationPage/>,
+        action: authAction
+      }
     ]
   },
 ]);

@@ -1,6 +1,7 @@
 import { Form, redirect, useNavigate, useNavigation } from 'react-router-dom';
 
 import classes from './EventForm.module.css';
+import { getAuthToken } from '../util/auth';
 
 function EventForm({ method, event }) {
   console.log('method', method);
@@ -16,7 +17,7 @@ function EventForm({ method, event }) {
   }
 
   return (
-    <Form method={'post'} className={classes.form}>
+    <Form method={method} className={classes.form}>
       <p>
         <label htmlFor="title">Title</label>
         <input id="title" type="text" name="title" required  defaultValue={event ? event.title : ''}/>
@@ -62,11 +63,13 @@ export async function changeEventAction({ request, params }) {
   }
   console.log('url====', url);
   
+ const token = getAuthToken();
 
   const response = await fetch(url, {
     method: method,
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
     },
     body: JSON.stringify(event),
   });

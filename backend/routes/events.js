@@ -1,6 +1,7 @@
 const express = require('express');
 
 const { getAll, get, add, replace, remove } = require('../data/event');
+const { checkAuth } = require('../util/auth');
 const {
   isValidText,
   isValidDate,
@@ -20,16 +21,14 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    console.log('req.params.id', req.params.id);
-    
     const event = await get(req.params.id);
     res.json({ event: event });
   } catch (error) {
-    console.log('error', error);
-    
     next(error);
   }
 });
+
+router.use(checkAuth);
 
 router.post('/', async (req, res, next) => {
   const data = req.body;
