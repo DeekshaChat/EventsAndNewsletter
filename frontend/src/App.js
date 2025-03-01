@@ -11,6 +11,7 @@ import ErrorPage from "./pages/ErrorPage";
 import { changeEventAction } from "./components/EventForm";
 import NewsletterPage, { newsletterAction } from './pages/NewsletterPage';
 import AuthenticationPage, { authAction } from "./pages/AuthenticationPage";
+import { checkAuthLoader, logoutAction, tokenLoader } from "./pages/Logout";
 
 // 1. Add five new (dummy) page components (content can be simple <h1> elements)
 //    - HomePage
@@ -37,6 +38,8 @@ const router = createBrowserRouter([
     path: '/',
     element: <RootLayout/>,
     errorElement: <ErrorPage/>,
+    id: 'root',
+    loader: tokenLoader,
     children: [
       {
           index: true,
@@ -64,14 +67,16 @@ const router = createBrowserRouter([
               {
                 path: 'edit', // if '/' in the path, it will be absolute path. This is relative path.
                 element: <EditEventPage/>,
-                action: changeEventAction
+                action: changeEventAction,
+                loader: checkAuthLoader
               },
             ]
           },
           {
             path: 'new',
             element: <NewEventPage/>,
-            action: changeEventAction
+            action: changeEventAction,
+            loader: checkAuthLoader
           },
 
         ]
@@ -85,7 +90,12 @@ const router = createBrowserRouter([
         path: 'auth',
         element: <AuthenticationPage/>,
         action: authAction
+      },
+      {
+        path: 'logout',
+        action: logoutAction
       }
+
     ]
   },
 ]);

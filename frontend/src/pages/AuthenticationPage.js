@@ -48,6 +48,9 @@ export async function authAction({request, params}) {
     const res = await response.json();
   
     localStorage.setItem('token', res.token);
+    const time = new Date();
+    time.setHours(time.getHours() + 1);
+    localStorage.setItem('expirationTime', time.toISOString());
     return redirect('/');
   } catch (error) {
     console.log('error====', error);
